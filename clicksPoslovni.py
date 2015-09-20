@@ -1,7 +1,4 @@
-# budget
-# error handling
 # manko klikov
-
 
 print("IZRAČUN KLIKOV ZA PAKETE POSLOVNI, ver. 1.0, @Damjan Mihelič ;)")
 
@@ -34,47 +31,59 @@ while True:
 
     month = 0
     while True:
-        month = int(input("Mesec (1-12): "))
-        if month in range(1, 14):
-            break
+        try:
+            month = int(input("Mesec (1-12): "))
+            if month in range(1, 14):
+                break
+        except ValueError:
+            pass
 
     startDay = 0
     while True:
-        startDay = int(input("Dan začetka akcije: "))
-        if month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
-            if startDay in range(1, 32):
-                break
-        elif month == 4 or month == 6 or month == 9 or month == 11:
-            if startDay in range(1, 31):
-                            break
-        elif month == 2:
-            if startDay in range(1, 29):
-                break
-        else:
-            if startDay in range(1, 30):
-                break
-            
+        try:
+            startDay = int(input("Dan začetka akcije: "))
+            if month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
+                if startDay in range(1, 32):
+                    break
+            elif month == 4 or month == 6 or month == 9 or month == 11:
+                if startDay in range(1, 31):
+                                break
+            elif month == 2:
+                if startDay in range(1, 29):
+                    break
+            else:
+                if startDay in range(1, 30):
+                    break
+        except ValueError:
+            pass
+
     currentDay = 0
     while True:
-        currentDay = int(input("Današnji dan: "))
-        if month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
-            if currentDay in range(1, 32) and currentDay >= startDay:
-                break
-        elif month == 4 or month == 6 or month == 9 or month == 11:
-            if currentDay in range(1, 31) and currentDay >= startDay:
-                break
-        elif month == 2:
-            if currentDay in range(1, 29) and currentDay >= startDay:
-                break
-        else:
-            if currentDay in range(1, 30) and currentDay >= startDay:
-                break
+        try:
+            currentDay = int(input("Današnji dan: "))
+            if month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
+                if currentDay in range(1, 32) and currentDay >= startDay:
+                    break
+            elif month == 4 or month == 6 or month == 9 or month == 11:
+                if currentDay in range(1, 31) and currentDay >= startDay:
+                    break
+            elif month == 2:
+                if currentDay in range(1, 29) and currentDay >= startDay:
+                    break
+            else:
+                if currentDay in range(1, 30) and currentDay >= startDay:
+                    break
+        except ValueError:
+            pass
 
     package = 0
     while True:
-        package = int(input("Paket (49, 99, 199, 399): "))
-        if package == 49 or package == 99 or package == 199 or package == 399:
-            break
+        try:
+            package = int(input("Paket (49, 99, 199, 399): "))
+            if package == 49 or package == 99 or package == 199 or package == 399:
+                break
+        except ValueError:
+            pass
         
     GAdW = None
     while True:
@@ -133,13 +142,21 @@ while True:
             clicksTSmediaFuture = round((clicksTSmediaMonth - clicksGeneratedTSmedia), 2)
 
         print("\n--------------------------------------------------------------------\n--------------------------------------------------------------------")
+
+        print("\nSPLOŠNO")
         
         print("\nŠtevilo mesečnih klikov v omrežju GAdW pri paketu Poslovni %s: " % str(package) + str(clicksGAdW))
         print("Število mesečnih klikov v omrežju TSmedia pri paketu Poslovni %s: " % str(package) + str(clicksTSmedia))
 
+        print("\nBudget v omrežju GAdW: " + str(round((package * 1/5), 2)) + " EUR (na dan: " + str(round((package * 1/5 / months[month][1]), 2)) + " EUR)")
+        print("Budget v omrežju TSmedia: " + str(round((package * 4/5), 2)) + " EUR")
+
         print("\nZačetek akcije v tekočem mesecu: " + str(startDay) + ". " + str(months[month][0]))
+        print("Trajanje akcije v dnevih: " + str(currentDay - startDay))
 
         print("\n--------------------------------------------------------------------")
+
+        print("\nCILJI")
         
         print("\nSkupni cilj: " + str(clicksGAdWMonth) + " klikov v omrežju GAdW v mesecu %s." % (months[month][0]))
         print("Skupni cilj: " + str(clicksTSmediaMonth) + " klikov v omrežju TSmedia v mesecu %s." % (months[month][0]))
@@ -148,6 +165,8 @@ while True:
         print("Dnevni cilj: " + str(round((clicksTSmedia / (months[month][1])), 2)) + " klikov na dan v omrežju TSmedia v mesecu %s." % (months[month][0]))
 
         print("\n--------------------------------------------------------------------")
+
+        print("\nIZRAČUNI")
 
         print("\nGeneriranih klikov v omrežju GAdW v mesecu %s: " % (months[month][0]) +str(clicksGeneratedGAdW))
         print("Generiranih klikov v omrežju TSmedia v mesecu %s: " % (months[month][0]) + str(clicksGeneratedTSmedia))
@@ -211,18 +230,27 @@ while True:
         clicksTSmediaFuture = round((clicksTSmediaMonth - clicksGeneratedTSmedia) / ((months[month][1] - currentDay)), 2)
 
         print("\n--------------------------------------------------------------------\n--------------------------------------------------------------------")
-            
+
+        print("\nSPLOŠNO")
+
         print("\nŠtevilo mesečnih klikov v omrežju TSmedia pri paketu Poslovni %s: " % str(package) + str(clicksTSmedia))
 
+        print("\nBudget v omrežju TSmedia: " + str(round(package, 2)) + " EUR")
+
         print("\nZačetek akcije v tekočem mesecu: " + str(startDay) + ". " + str(months[month][0]))
+        print("Trajanje akcije v dnevih: " + str(currentDay - startDay))
 
         print("\n--------------------------------------------------------------------")
+
+        print("\nCILJI")
 
         print("\nSkupni cilj: " + str(clicksTSmediaMonth) + " klikov v omrežju TSmedia v mesecu %s." % (months[month][0]))
 
         print("\nDnevni cilj: " + str(round((clicksTSmedia / (months[month][1])), 2)) + " klikov na dan v omrežju TSmedia v mesecu %s." % (months[month][0]))
 
         print("\n--------------------------------------------------------------------")
+
+        print("\nIZRAČUNI")
 
         print("\nGeneriranih klikov v omrežju TSmedia v mesecu %s: " % (months[month][0]) + str(clicksGeneratedTSmedia))
 
